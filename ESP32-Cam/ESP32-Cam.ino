@@ -1,27 +1,3 @@
-/*******************************************************************
-
-   A Telegram bot for taking a photo with an ESP32Cam
-
-   Parts used:
-   ESP32-CAM module* - http://s.click.aliexpress.com/e/bnXR1eYs
-
-    = Affiliate Links
-
-   Note:
-   - Make sure that you have either selected ESP32 Wrover Module,
-           or another board which has PSRAM enabled
-   - Choose "Huge App" partion scheme
-
-   Some of the camera code comes from Rui Santos:
-   https://randomnerdtutorials.com/esp32-cam-take-photo-save-microsd-card/
-
-   Written by Brian Lough
-    YouTube: https://www.youtube.com/brianlough
-    Tindie: https://www.tindie.com/stores/brianlough/
-    Twitter: https://twitter.com/witnessmenow
-*******************************************************************/
-
-
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
@@ -29,31 +5,20 @@
 #include <ArduinoJson.h>
 #include "camera_pins.h"
 #include "camera_code.h"
-
 #define CAMERA_MODEL_ESP_EYE
-
-
-// Wifi network station credentials
 #define WIFI_SSID "MOVISTAR_5259"
 #define WIFI_PASSWORD "198257E275BEBC21FE88"
-// Telegram BOT Token (Get from Botfather)
 #define BOT_TOKEN "1307763775:AAGN5qYsbhCY9qOwyZ5fhbbceOB6aCuNqtU"
 
 
-const unsigned long BOT_MTBS = 1000; // mean time between scan messages
-
-unsigned long bot_lasttime; // last time messages' scan has been done
+const unsigned long BOT_MTBS = 1000;
+unsigned long bot_lasttime; //
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
-
-bool flashState = LOW;
-
 camera_fb_t *fb = NULL;
-
 bool isMoreDataAvailable();
 byte *getNextBuffer();
 int getNextBufferLen();
-
 bool dataAvailable = false;
 
 void handleNewMessages(int numNewMessages)
@@ -175,8 +140,6 @@ void setup()
     now = time(nullptr);
   }
   Serial.println(now);
-
-  // Make the bot wait for a new message for up to 60seconds
   bot.longPoll = 60;
 }
 
